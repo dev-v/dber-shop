@@ -1,0 +1,179 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopEvaluateMapper">
+
+	<select id="get" resultType="ShopEvaluate">
+		select * from shop_evaluate where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from shop_evaluate where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="ShopEvaluate">
+		SELECT * FROM shop_evaluate WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from shop_evaluate where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="shopId!=null">
+				shop_id=#{shopId},
+			</if>
+			<if test="accountId!=null">
+				account_id=#{accountId},
+			</if>
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="stars!=null">
+				stars=#{stars},
+			</if>
+			<if test="content!=null">
+				content=#{content},
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="shopId!=null">
+				#{shopId},
+			</if>
+			<if test="accountId!=null">
+				#{accountId},
+			</if>
+			<if test="name!=null">
+				#{name},
+			</if>
+			<if test="stars!=null">
+				#{stars},
+			</if>
+			<if test="content!=null">
+				#{content},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into shop_evaluate
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update shop_evaluate
+		<set>
+						<if test="shopId != null ">
+				shop_id=#{shopId},
+			</if>
+			<if test="accountId != null ">
+				account_id=#{accountId},
+			</if>
+			<if test="name != null ">
+				name=#{name},
+			</if>
+			<if test="stars != null ">
+				stars=#{stars},
+			</if>
+			<if test="content != null ">
+				content=#{content},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into shop_evaluate
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+						<if test="shopId != null ">
+				shop_id=values(shop_id),
+			</if>
+			<if test="accountId != null ">
+				account_id=values(account_id),
+			</if>
+			<if test="name != null ">
+				name=values(name),
+			</if>
+			<if test="stars != null ">
+				stars=values(stars),
+			</if>
+			<if test="content != null ">
+				content=values(content),
+			</if>
+
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select id,shop_id,account_id,name,stars,modify_time from
+		shop_evaluate
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="shopId != null">
+				AND shop_id=#{shopId}
+			</if>
+			<if test="accountId != null">
+				AND account_id=#{accountId}
+			</if>
+			<if test="name != null">
+				AND name=#{name}
+			</if>
+			<if test="stars != null">
+				AND stars=#{stars}
+			</if>
+			<if test="content != null">
+				AND content=#{content}
+			</if>
+			<if test="modifyTime != null">
+				AND modify_time=#{modifyTime}
+			</if>
+
+		</trim>
+	</sql>
+
+	<select id="query" resultType="ShopEvaluate">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="ShopEvaluate">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from shop_evaluate
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>

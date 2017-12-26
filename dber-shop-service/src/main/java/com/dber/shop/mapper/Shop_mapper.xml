@@ -1,0 +1,407 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopMapper">
+
+	<select id="get" resultType="Shop">
+		select * from shop where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from shop where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="Shop">
+		SELECT * FROM shop WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from shop where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="address!=null">
+				address=#{address},
+			</if>
+			<if test="tellphone!=null">
+				tellphone=#{tellphone},
+			</if>
+			<if test="manager!=null">
+				manager=#{manager},
+			</if>
+			<if test="managerPhone!=null">
+				manager_phone=#{managerPhone},
+			</if>
+			<if test="businessBegin!=null">
+				business_begin=#{businessBegin},
+			</if>
+			<if test="businessEnd!=null">
+				business_end=#{businessEnd},
+			</if>
+			<if test="area!=null">
+				area=#{area},
+			</if>
+			<if test="chain!=null">
+				chain=#{chain},
+			</if>
+			<if test="bathing!=null">
+				bathing=#{bathing},
+			</if>
+			<if test="sauna!=null">
+				sauna=#{sauna},
+			</if>
+			<if test="airSystem!=null">
+				air_system=#{airSystem},
+			</if>
+			<if test="physicalTesting!=null">
+				physical_testing=#{physicalTesting},
+			</if>
+			<if test="status!=null">
+				status=#{status},
+			</if>
+			<if test="matrixCodeId!=null">
+				matrix_code_id=#{matrixCodeId},
+			</if>
+			<if test="score!=null">
+				score=#{score},
+			</if>
+			<if test="level!=null">
+				level=#{level},
+			</if>
+			<if test="expectPrice!=null">
+				expect_price=#{expectPrice},
+			</if>
+			<if test="price!=null">
+				price=#{price},
+			</if>
+			<if test="imgId!=null">
+				img_id=#{imgId},
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="name!=null">
+				#{name},
+			</if>
+			<if test="address!=null">
+				#{address},
+			</if>
+			<if test="tellphone!=null">
+				#{tellphone},
+			</if>
+			<if test="manager!=null">
+				#{manager},
+			</if>
+			<if test="managerPhone!=null">
+				#{managerPhone},
+			</if>
+			<if test="businessBegin!=null">
+				#{businessBegin},
+			</if>
+			<if test="businessEnd!=null">
+				#{businessEnd},
+			</if>
+			<if test="area!=null">
+				#{area},
+			</if>
+			<if test="chain!=null">
+				#{chain},
+			</if>
+			<if test="bathing!=null">
+				#{bathing},
+			</if>
+			<if test="sauna!=null">
+				#{sauna},
+			</if>
+			<if test="airSystem!=null">
+				#{airSystem},
+			</if>
+			<if test="physicalTesting!=null">
+				#{physicalTesting},
+			</if>
+			<if test="status!=null">
+				#{status},
+			</if>
+			<if test="matrixCodeId!=null">
+				#{matrixCodeId},
+			</if>
+			<if test="score!=null">
+				#{score},
+			</if>
+			<if test="level!=null">
+				#{level},
+			</if>
+			<if test="expectPrice!=null">
+				#{expectPrice},
+			</if>
+			<if test="price!=null">
+				#{price},
+			</if>
+			<if test="imgId!=null">
+				#{imgId},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into shop
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update shop
+		<set>
+						<if test="name != null ">
+				name=#{name},
+			</if>
+			<if test="address != null ">
+				address=#{address},
+			</if>
+			<if test="tellphone != null ">
+				tellphone=#{tellphone},
+			</if>
+			<if test="manager != null ">
+				manager=#{manager},
+			</if>
+			<if test="managerPhone != null ">
+				manager_phone=#{managerPhone},
+			</if>
+			<if test="businessBegin != null ">
+				business_begin=#{businessBegin},
+			</if>
+			<if test="businessEnd != null ">
+				business_end=#{businessEnd},
+			</if>
+			<if test="area != null ">
+				area=#{area},
+			</if>
+			<if test="chain != null ">
+				chain=#{chain},
+			</if>
+			<if test="bathing != null ">
+				bathing=#{bathing},
+			</if>
+			<if test="sauna != null ">
+				sauna=#{sauna},
+			</if>
+			<if test="airSystem != null ">
+				air_system=#{airSystem},
+			</if>
+			<if test="physicalTesting != null ">
+				physical_testing=#{physicalTesting},
+			</if>
+			<if test="status != null ">
+				status=#{status},
+			</if>
+			<if test="matrixCodeId != null ">
+				matrix_code_id=#{matrixCodeId},
+			</if>
+			<if test="score != null ">
+				score=#{score},
+			</if>
+			<if test="level != null ">
+				level=#{level},
+			</if>
+			<if test="expectPrice != null ">
+				expect_price=#{expectPrice},
+			</if>
+			<if test="price != null ">
+				price=#{price},
+			</if>
+			<if test="imgId != null ">
+				img_id=#{imgId},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into shop
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+						<if test="name != null ">
+				name=values(name),
+			</if>
+			<if test="address != null ">
+				address=values(address),
+			</if>
+			<if test="tellphone != null ">
+				tellphone=values(tellphone),
+			</if>
+			<if test="manager != null ">
+				manager=values(manager),
+			</if>
+			<if test="managerPhone != null ">
+				manager_phone=values(manager_phone),
+			</if>
+			<if test="businessBegin != null ">
+				business_begin=values(business_begin),
+			</if>
+			<if test="businessEnd != null ">
+				business_end=values(business_end),
+			</if>
+			<if test="area != null ">
+				area=values(area),
+			</if>
+			<if test="chain != null ">
+				chain=values(chain),
+			</if>
+			<if test="bathing != null ">
+				bathing=values(bathing),
+			</if>
+			<if test="sauna != null ">
+				sauna=values(sauna),
+			</if>
+			<if test="airSystem != null ">
+				air_system=values(air_system),
+			</if>
+			<if test="physicalTesting != null ">
+				physical_testing=values(physical_testing),
+			</if>
+			<if test="status != null ">
+				status=values(status),
+			</if>
+			<if test="matrixCodeId != null ">
+				matrix_code_id=values(matrix_code_id),
+			</if>
+			<if test="score != null ">
+				score=values(score),
+			</if>
+			<if test="level != null ">
+				level=values(level),
+			</if>
+			<if test="expectPrice != null ">
+				expect_price=values(expect_price),
+			</if>
+			<if test="price != null ">
+				price=values(price),
+			</if>
+			<if test="imgId != null ">
+				img_id=values(img_id),
+			</if>
+
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select id,name,tellphone,manager,manager_phone,business_begin,business_end,area,chain,bathing,sauna,air_system,status,matrix_code_id,score,level,expect_price,price,img_id,create_time,modify_time from
+		shop
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="name != null">
+				AND name=#{name}
+			</if>
+			<if test="address != null">
+				AND address=#{address}
+			</if>
+			<if test="tellphone != null">
+				AND tellphone=#{tellphone}
+			</if>
+			<if test="manager != null">
+				AND manager=#{manager}
+			</if>
+			<if test="managerPhone != null">
+				AND manager_phone=#{managerPhone}
+			</if>
+			<if test="businessBegin != null">
+				AND business_begin=#{businessBegin}
+			</if>
+			<if test="businessEnd != null">
+				AND business_end=#{businessEnd}
+			</if>
+			<if test="area != null">
+				AND area=#{area}
+			</if>
+			<if test="chain != null">
+				AND chain=#{chain}
+			</if>
+			<if test="bathing != null">
+				AND bathing=#{bathing}
+			</if>
+			<if test="sauna != null">
+				AND sauna=#{sauna}
+			</if>
+			<if test="airSystem != null">
+				AND air_system=#{airSystem}
+			</if>
+			<if test="physicalTesting != null">
+				AND physical_testing=#{physicalTesting}
+			</if>
+			<if test="status != null">
+				AND status=#{status}
+			</if>
+			<if test="matrixCodeId != null">
+				AND matrix_code_id=#{matrixCodeId}
+			</if>
+			<if test="score != null">
+				AND score=#{score}
+			</if>
+			<if test="level != null">
+				AND level=#{level}
+			</if>
+			<if test="expectPrice != null">
+				AND expect_price=#{expectPrice}
+			</if>
+			<if test="price != null">
+				AND price=#{price}
+			</if>
+			<if test="imgId != null">
+				AND img_id=#{imgId}
+			</if>
+			<if test="createTime != null">
+				AND create_time=#{createTime}
+			</if>
+			<if test="modifyTime != null">
+				AND modify_time=#{modifyTime}
+			</if>
+
+		</trim>
+	</sql>
+
+	<select id="query" resultType="Shop">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="Shop">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from shop
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>

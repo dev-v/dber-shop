@@ -1,0 +1,13 @@
+rootProject.name = 'dber-shop'
+
+includeFlat 'dber'
+
+include 'dber:dber-base-api'
+
+include 'dber:dber-base-service'
+
+include 'dber:dber-base-util'
+
+include 'dber-shop-api'
+
+include 'dber-shop-service'

@@ -1,0 +1,137 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopGroupCustomerBookingMapper">
+
+	<select id="get" resultType="ShopGroupCustomerBooking">
+		select * from shop_group_customer_booking where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from shop_group_customer_booking where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="ShopGroupCustomerBooking">
+		SELECT * FROM shop_group_customer_booking WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from shop_group_customer_booking where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="bookingDetailId!=null">
+				booking_detail_id=#{bookingDetailId},
+			</if>
+			<if test="customerId!=null">
+				customer_id=#{customerId},
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="bookingDetailId!=null">
+				#{bookingDetailId},
+			</if>
+			<if test="customerId!=null">
+				#{customerId},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into shop_group_customer_booking
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update shop_group_customer_booking
+		<set>
+						<if test="bookingDetailId != null ">
+				booking_detail_id=#{bookingDetailId},
+			</if>
+			<if test="customerId != null ">
+				customer_id=#{customerId},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into shop_group_customer_booking
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+						<if test="bookingDetailId != null ">
+				booking_detail_id=values(booking_detail_id),
+			</if>
+			<if test="customerId != null ">
+				customer_id=values(customer_id),
+			</if>
+
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select id,booking_detail_id,customer_id,create_time,modify_time from
+		shop_group_customer_booking
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="bookingDetailId != null">
+				AND booking_detail_id=#{bookingDetailId}
+			</if>
+			<if test="customerId != null">
+				AND customer_id=#{customerId}
+			</if>
+			<if test="createTime != null">
+				AND create_time=#{createTime}
+			</if>
+			<if test="modifyTime != null">
+				AND modify_time=#{modifyTime}
+			</if>
+
+		</trim>
+	</sql>
+
+	<select id="query" resultType="ShopGroupCustomerBooking">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="ShopGroupCustomerBooking">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from shop_group_customer_booking
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>
