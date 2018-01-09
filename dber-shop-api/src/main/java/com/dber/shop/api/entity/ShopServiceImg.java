@@ -1,7 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 /**
@@ -35,7 +33,7 @@ public class ShopServiceImg {
 	/**
 	 * 
 	 */
-	private Timestamp modifyTime;
+	private java.sql.Timestamp modifyTime;
 
 
 }

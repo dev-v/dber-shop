@@ -74,7 +74,7 @@ public class ShopServiceConfig {
 
 		PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 		shopSqlSessionFactoryBean
-				.setMapperLocations(resourceResolver.getResources("classpath*:/com/dber/shop/mapper/*_mapper.xml"));
+				.setMapperLocations(resourceResolver.getResources("classpath*:/mapper/*_mapper.xml"));
 
 		Interceptor[] interceptors = { PaginationInterceptor.getInstance() };
 		shopSqlSessionFactoryBean.setPlugins(interceptors);

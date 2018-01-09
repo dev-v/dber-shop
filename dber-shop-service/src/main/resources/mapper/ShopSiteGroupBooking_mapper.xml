@@ -1,0 +1,353 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopSiteGroupBookingMapper">
+
+	<select id="get" resultType="ShopSiteGroupBooking">
+		select * from shop_site_group_booking where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from shop_site_group_booking where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="ShopSiteGroupBooking">
+		SELECT * FROM shop_site_group_booking WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from shop_site_group_booking where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				id,
+			</if>
+			<if test="siteBookingId!=null">
+				site_booking_id,
+			</if>
+			<if test="shopId!=null">
+				shop_id,
+			</if>
+			<if test="coacherId!=null">
+				coacher_id,
+			</if>
+			<if test="shopServiceId!=null">
+				shop_service_id,
+			</if>
+			<if test="type!=null">
+				_type,
+			</if>
+			<if test="status!=null">
+				_status,
+			</if>
+			<if test="coacherPrice!=null">
+				coacher_price,
+			</if>
+			<if test="shopName!=null">
+				shop_name,
+			</if>
+			<if test="serviceName!=null">
+				service_name,
+			</if>
+			<if test="siteName!=null">
+				site_name,
+			</if>
+			<if test="coacherName!=null">
+				coacher_name,
+			</if>
+			<if test="coacherCellphone!=null">
+				coacher_cellphone,
+			</if>
+			<if test="content!=null">
+				content,
+			</if>
+			<if test="bookingDate!=null">
+				booking_date,
+			</if>
+			<if test="timeBegin!=null">
+				time_begin,
+			</if>
+			<if test="timeEnd!=null">
+				time_end,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				#{id},
+			</if>
+			<if test="siteBookingId!=null">
+				#{siteBookingId},
+			</if>
+			<if test="shopId!=null">
+				#{shopId},
+			</if>
+			<if test="coacherId!=null">
+				#{coacherId},
+			</if>
+			<if test="shopServiceId!=null">
+				#{shopServiceId},
+			</if>
+			<if test="type!=null">
+				#{type},
+			</if>
+			<if test="status!=null">
+				#{status},
+			</if>
+			<if test="coacherPrice!=null">
+				#{coacherPrice},
+			</if>
+			<if test="shopName!=null">
+				#{shopName},
+			</if>
+			<if test="serviceName!=null">
+				#{serviceName},
+			</if>
+			<if test="siteName!=null">
+				#{siteName},
+			</if>
+			<if test="coacherName!=null">
+				#{coacherName},
+			</if>
+			<if test="coacherCellphone!=null">
+				#{coacherCellphone},
+			</if>
+			<if test="content!=null">
+				#{content},
+			</if>
+			<if test="bookingDate!=null">
+				#{bookingDate},
+			</if>
+			<if test="timeBegin!=null">
+				#{timeBegin},
+			</if>
+			<if test="timeEnd!=null">
+				#{timeEnd},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into shop_site_group_booking
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update shop_site_group_booking
+		<set>
+						<if test="siteBookingId != null ">
+				site_booking_id=#{siteBookingId},
+			</if>
+			<if test="shopId != null ">
+				shop_id=#{shopId},
+			</if>
+			<if test="coacherId != null ">
+				coacher_id=#{coacherId},
+			</if>
+			<if test="shopServiceId != null ">
+				shop_service_id=#{shopServiceId},
+			</if>
+			<if test="type != null ">
+				_type=#{type},
+			</if>
+			<if test="status != null ">
+				_status=#{status},
+			</if>
+			<if test="coacherPrice != null ">
+				coacher_price=#{coacherPrice},
+			</if>
+			<if test="shopName != null ">
+				shop_name=#{shopName},
+			</if>
+			<if test="serviceName != null ">
+				service_name=#{serviceName},
+			</if>
+			<if test="siteName != null ">
+				site_name=#{siteName},
+			</if>
+			<if test="coacherName != null ">
+				coacher_name=#{coacherName},
+			</if>
+			<if test="coacherCellphone != null ">
+				coacher_cellphone=#{coacherCellphone},
+			</if>
+			<if test="content != null ">
+				content=#{content},
+			</if>
+			<if test="bookingDate != null ">
+				booking_date=#{bookingDate},
+			</if>
+			<if test="timeBegin != null ">
+				time_begin=#{timeBegin},
+			</if>
+			<if test="timeEnd != null ">
+				time_end=#{timeEnd},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into shop_site_group_booking
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+						<if test="siteBookingId != null ">
+				site_booking_id=values(site_booking_id),
+			</if>
+			<if test="shopId != null ">
+				shop_id=values(shop_id),
+			</if>
+			<if test="coacherId != null ">
+				coacher_id=values(coacher_id),
+			</if>
+			<if test="shopServiceId != null ">
+				shop_service_id=values(shop_service_id),
+			</if>
+			<if test="type != null ">
+				_type=values(_type),
+			</if>
+			<if test="status != null ">
+				_status=values(_status),
+			</if>
+			<if test="coacherPrice != null ">
+				coacher_price=values(coacher_price),
+			</if>
+			<if test="shopName != null ">
+				shop_name=values(shop_name),
+			</if>
+			<if test="serviceName != null ">
+				service_name=values(service_name),
+			</if>
+			<if test="siteName != null ">
+				site_name=values(site_name),
+			</if>
+			<if test="coacherName != null ">
+				coacher_name=values(coacher_name),
+			</if>
+			<if test="coacherCellphone != null ">
+				coacher_cellphone=values(coacher_cellphone),
+			</if>
+			<if test="content != null ">
+				content=values(content),
+			</if>
+			<if test="bookingDate != null ">
+				booking_date=values(booking_date),
+			</if>
+			<if test="timeBegin != null ">
+				time_begin=values(time_begin),
+			</if>
+			<if test="timeEnd != null ">
+				time_end=values(time_end),
+			</if>
+
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select id,site_booking_id,shop_id,coacher_id,shop_service_id,_type,_status,coacher_price,shop_name,service_name,site_name,coacher_name,coacher_cellphone,booking_date,time_begin,time_end,create_time,modify_time from
+		shop_site_group_booking
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="siteBookingId != null">
+				AND site_booking_id=#{siteBookingId}
+			</if>
+			<if test="shopId != null">
+				AND shop_id=#{shopId}
+			</if>
+			<if test="coacherId != null">
+				AND coacher_id=#{coacherId}
+			</if>
+			<if test="shopServiceId != null">
+				AND shop_service_id=#{shopServiceId}
+			</if>
+			<if test="type != null">
+				AND _type=#{type}
+			</if>
+			<if test="status != null">
+				AND _status=#{status}
+			</if>
+			<if test="coacherPrice != null">
+				AND coacher_price=#{coacherPrice}
+			</if>
+			<if test="shopName != null">
+				AND shop_name=#{shopName}
+			</if>
+			<if test="serviceName != null">
+				AND service_name=#{serviceName}
+			</if>
+			<if test="siteName != null">
+				AND site_name=#{siteName}
+			</if>
+			<if test="coacherName != null">
+				AND coacher_name=#{coacherName}
+			</if>
+			<if test="coacherCellphone != null">
+				AND coacher_cellphone=#{coacherCellphone}
+			</if>
+			<if test="content != null">
+				AND content=#{content}
+			</if>
+			<if test="bookingDate != null">
+				AND booking_date=#{bookingDate}
+			</if>
+			<if test="timeBegin != null">
+				AND time_begin=#{timeBegin}
+			</if>
+			<if test="timeEnd != null">
+				AND time_end=#{timeEnd}
+			</if>
+			<if test="createTime != null">
+				AND create_time=#{createTime}
+			</if>
+			<if test="modifyTime != null">
+				AND modify_time=#{modifyTime}
+			</if>
+
+		</trim>
+	</sql>
+
+	<select id="query" resultType="ShopSiteGroupBooking">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="ShopSiteGroupBooking">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from shop_site_group_booking
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>

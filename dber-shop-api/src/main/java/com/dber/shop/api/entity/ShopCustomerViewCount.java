@@ -1,8 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 /**
@@ -26,7 +23,7 @@ public class ShopCustomerViewCount {
 	/**
 	 * 统计日
 	 */
-	private Date date;
+	private java.sql.Date date;
 
 	/**
 	 * 到店人数
@@ -36,7 +33,7 @@ public class ShopCustomerViewCount {
 	/**
 	 * 
 	 */
-	private Timestamp modifyTime;
+	private java.sql.Timestamp modifyTime;
 
 
 }

@@ -1,9 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 /**
@@ -52,12 +48,12 @@ public class Shop {
 	/**
 	 * 营业开始时间
 	 */
-	private Time businessBegin;
+	private java.sql.Time businessBegin;
 
 	/**
 	 * 营业结束时间
 	 */
-	private Time businessEnd;
+	private java.sql.Time businessEnd;
 
 	/**
 	 * 占地面积（建筑或室内），单位平米
@@ -122,9 +118,9 @@ public class Shop {
 	private Integer expectPrice;
 
 	/**
-	 * 实际常规消费价，单位分
+	 * 实际常规消费价
 	 */
-	private Integer price;
+	private Double price;
 
 	/**
 	 * 店铺主页图片
@@ -134,12 +130,12 @@ public class Shop {
 	/**
 	 * 
 	 */
-	private Date createTime;
+	private java.sql.Date createTime;
 
 	/**
 	 * 
 	 */
-	private Timestamp modifyTime;
+	private java.sql.Timestamp modifyTime;
 
 
 }

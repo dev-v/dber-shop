@@ -1,8 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 /**
@@ -34,19 +31,19 @@ public class ShopSite {
 	private String name;
 
 	/**
-	 * 场馆每小时出租或预约价格，单位分
+	 * 场馆每小时出租或预约价格
 	 */
-	private Integer price;
+	private Double price;
 
 	/**
 	 * 
 	 */
-	private Date createTime;
+	private java.sql.Date createTime;
 
 	/**
 	 * 
 	 */
-	private Timestamp modifyTime;
+	private java.sql.Timestamp modifyTime;
 
 
 }

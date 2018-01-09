@@ -1,8 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 /**
@@ -31,7 +28,7 @@ public class ShopRating {
 	/**
 	 * 评价年月
 	 */
-	private Date yearMonth;
+	private java.sql.Date yearMonth;
 
 	/**
 	 * 基本硬件分数（数据主要来自于shop表）
@@ -81,12 +78,12 @@ public class ShopRating {
 	/**
 	 * 评估常规消费价格
 	 */
-	private Integer evalutePrice;
+	private Double evalutePrice;
 
 	/**
 	 * 
 	 */
-	private Timestamp modifyTime;
+	private java.sql.Timestamp modifyTime;
 
 
 }

@@ -1,9 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 /**
@@ -68,6 +64,11 @@ public class ShopSiteGroupBooking {
 	private Integer status;
 
 	/**
+	 * 团体教练的价格
+	 */
+	private Double coacherPrice;
+
+	/**
 	 * 
 	 */
 	private String shopName;
@@ -98,34 +99,29 @@ public class ShopSiteGroupBooking {
 	private String content;
 
 	/**
-	 * 团体教练的价格
+	 * 
 	 */
-	private Integer price;
+	private java.sql.Date bookingDate;
 
 	/**
 	 * 
 	 */
-	private Date bookingDate;
+	private java.sql.Time timeBegin;
 
 	/**
 	 * 
 	 */
-	private Time timeBegin;
+	private java.sql.Time timeEnd;
 
 	/**
 	 * 
 	 */
-	private Time timeEnd;
+	private java.sql.Date createTime;
 
 	/**
 	 * 
 	 */
-	private Date createTime;
-
-	/**
-	 * 
-	 */
-	private Timestamp modifyTime;
+	private java.sql.Timestamp modifyTime;
 
 
 }

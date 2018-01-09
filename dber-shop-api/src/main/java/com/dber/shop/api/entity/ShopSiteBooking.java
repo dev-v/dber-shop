@@ -1,8 +1,5 @@
 package com.dber.shop.api.entity;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import lombok.Data;
 
 /**
@@ -31,17 +28,17 @@ public class ShopSiteBooking {
 	/**
 	 * 
 	 */
-	private Date bookingDate;
+	private java.sql.Date bookingDate;
 
 	/**
 	 * 使用起始时间，单位分钟
 	 */
-	private Time timeBegin;
+	private java.sql.Time timeBegin;
 
 	/**
 	 * 使用结束时间
 	 */
-	private Time timeEnd;
+	private java.sql.Time timeEnd;
 
 
 }

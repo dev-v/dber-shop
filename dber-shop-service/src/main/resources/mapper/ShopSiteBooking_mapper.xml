@@ -1,0 +1,167 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopSiteBookingMapper">
+
+	<select id="get" resultType="ShopSiteBooking">
+		select * from shop_site_booking where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from shop_site_booking where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="ShopSiteBooking">
+		SELECT * FROM shop_site_booking WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from shop_site_booking where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				id,
+			</if>
+			<if test="siteId!=null">
+				site_id,
+			</if>
+			<if test="bookingDate!=null">
+				booking_date,
+			</if>
+			<if test="timeBegin!=null">
+				time_begin,
+			</if>
+			<if test="timeEnd!=null">
+				time_end,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				#{id},
+			</if>
+			<if test="siteId!=null">
+				#{siteId},
+			</if>
+			<if test="bookingDate!=null">
+				#{bookingDate},
+			</if>
+			<if test="timeBegin!=null">
+				#{timeBegin},
+			</if>
+			<if test="timeEnd!=null">
+				#{timeEnd},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into shop_site_booking
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update shop_site_booking
+		<set>
+						<if test="siteId != null ">
+				site_id=#{siteId},
+			</if>
+			<if test="bookingDate != null ">
+				booking_date=#{bookingDate},
+			</if>
+			<if test="timeBegin != null ">
+				time_begin=#{timeBegin},
+			</if>
+			<if test="timeEnd != null ">
+				time_end=#{timeEnd},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into shop_site_booking
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+						<if test="siteId != null ">
+				site_id=values(site_id),
+			</if>
+			<if test="bookingDate != null ">
+				booking_date=values(booking_date),
+			</if>
+			<if test="timeBegin != null ">
+				time_begin=values(time_begin),
+			</if>
+			<if test="timeEnd != null ">
+				time_end=values(time_end),
+			</if>
+
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select id,site_id,booking_date,time_begin,time_end from
+		shop_site_booking
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="siteId != null">
+				AND site_id=#{siteId}
+			</if>
+			<if test="bookingDate != null">
+				AND booking_date=#{bookingDate}
+			</if>
+			<if test="timeBegin != null">
+				AND time_begin=#{timeBegin}
+			</if>
+			<if test="timeEnd != null">
+				AND time_end=#{timeEnd}
+			</if>
+
+		</trim>
+	</sql>
+
+	<select id="query" resultType="ShopSiteBooking">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="ShopSiteBooking">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from shop_site_booking
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>

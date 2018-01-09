@@ -1,0 +1,137 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopVipCardServiceMapper">
+
+	<select id="get" resultType="ShopVipCardService">
+		select * from shop_vip_card_service where id=#{id}
+	</select>
+
+	<delete id="del">
+		delete from shop_vip_card_service where id = #{id}
+	</delete>
+
+	<select id="gets" resultType="ShopVipCardService">
+		SELECT * FROM shop_vip_card_service WHERE id IN
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+	</select>
+
+	<sql id="maxLimit">
+		limit 1000
+	</sql>
+
+	<delete id="dels">
+		delete from shop_vip_card_service where id in
+		<foreach item="item" index="index" collection="array" open="("
+			separator="," close=")"> #{item}
+		</foreach>
+		<include refid="maxLimit"></include>
+	</delete>
+
+	<sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				id,
+			</if>
+			<if test="shopVipCardId!=null">
+				shop_vip_card_id,
+			</if>
+			<if test="shopServiceId!=null">
+				shop_service_id,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				#{id},
+			</if>
+			<if test="shopVipCardId!=null">
+				#{shopVipCardId},
+			</if>
+			<if test="shopServiceId!=null">
+				#{shopServiceId},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+	<!-- 注意检查非空和主键自增属性 -->
+	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
+		insert
+		into shop_vip_card_service
+		<include refid="insertList"></include>
+	</insert>
+
+	<update id="update">
+		update shop_vip_card_service
+		<set>
+						<if test="shopVipCardId != null ">
+				shop_vip_card_id=#{shopVipCardId},
+			</if>
+			<if test="shopServiceId != null ">
+				shop_service_id=#{shopServiceId},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+		insert into shop_vip_card_service
+		<include refid="insertList"></include>
+		ON DUPLICATE KEY
+		UPDATE
+		<trim suffixOverrides=",">
+						<if test="shopVipCardId != null ">
+				shop_vip_card_id=values(shop_vip_card_id),
+			</if>
+			<if test="shopServiceId != null ">
+				shop_service_id=values(shop_service_id),
+			</if>
+
+		</trim>
+	</insert>
+
+	<sql id="queryList">
+		select id,shop_vip_card_id,shop_service_id from
+		shop_vip_card_service
+	</sql>
+
+	<sql id="where">
+		<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="shopVipCardId != null">
+				AND shop_vip_card_id=#{shopVipCardId}
+			</if>
+			<if test="shopServiceId != null">
+				AND shop_service_id=#{shopServiceId}
+			</if>
+
+		</trim>
+	</sql>
+
+	<select id="query" resultType="ShopVipCardService">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+	</select>
+
+	<select id="queryWithoutPage" resultType="ShopVipCardService">
+		<include refid="queryList"></include>
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+	<select id="getIds" resultType="long">
+		select id from shop_vip_card_service
+		<include refid="where"></include>
+		<include refid="maxLimit"></include>
+	</select>
+
+</mapper>
