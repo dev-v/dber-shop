@@ -4,22 +4,24 @@ import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import com.dber.config.SystemConfig;
+import com.dber.cache.config.CacheConfig;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.dber.base.mybatis.plugin.pagination.PaginationInterceptor;
 import com.dber.base.util.DBUtil;
-import com.dber.base.util.JdbcPoolConfig;
 
 /**
  * <li>文件名称: ShopService.java</li>
@@ -32,21 +34,19 @@ import com.dber.base.util.JdbcPoolConfig;
  * @author dev-v
  */
 @Configuration
-@EnableConfigurationProperties
+@EnableConfigurationProperties({SystemConfig.class})
 @EnableAutoConfiguration
 @EnableTransactionManagement
+@Import({CacheConfig.class})
 @ComponentScan("com.dber.shop.service")
 @MapperScan(basePackages = { "com.dber.shop.mapper" })
 public class ShopServiceConfig {
-	@Bean
-	@ConfigurationProperties(prefix = "dber.shop.service.mysql")
-	public JdbcPoolConfig shopJdbcPoolConfig() {
-		return new JdbcPoolConfig();
-	}
+	@Autowired
+	private SystemConfig systemConfig;
 
 	@Bean
 	public DataSource shopDataSource() {
-		DataSource shopDataSource = DBUtil.dataSource(shopJdbcPoolConfig());
+		DataSource shopDataSource = DBUtil.dataSource(systemConfig.getService().getDatabase());
 		return shopDataSource;
 	}
 

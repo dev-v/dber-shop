@@ -1,36 +1,36 @@
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dber.shop.mapper.IShopSiteGroupBookingMapper">
 
-	<select id="get" resultType="ShopSiteGroupBooking">
+    <select id="get" resultType="ShopSiteGroupBooking">
 		select * from shop_site_group_booking where id=#{id}
 	</select>
 
-	<delete id="del">
+    <delete id="del">
 		delete from shop_site_group_booking where id = #{id}
 	</delete>
 
-	<select id="gets" resultType="ShopSiteGroupBooking">
-		SELECT * FROM shop_site_group_booking WHERE id IN
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")"> #{item}
-		</foreach>
-	</select>
+    <select id="gets" resultType="ShopSiteGroupBooking">
+        SELECT * FROM shop_site_group_booking WHERE id IN
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+    </select>
 
-	<sql id="maxLimit">
+    <sql id="maxLimit">
 		limit 1000
 	</sql>
 
-	<delete id="dels">
-		delete from shop_site_group_booking where id in
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")"> #{item}
-		</foreach>
-		<include refid="maxLimit"></include>
-	</delete>
+    <delete id="dels">
+        delete from shop_site_group_booking where id in
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+        <include refid="maxLimit"></include>
+    </delete>
 
-	<sql id="insertList">
+    <sql id="insertList">
 		(
 		<trim suffixOverrides=",">
 			<if test="id!=null">
@@ -143,17 +143,17 @@
 		)
 	</sql>
 
-	<!-- 注意检查非空和主键自增属性 -->
-	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
-		insert
-		into shop_site_group_booking
-		<include refid="insertList"></include>
-	</insert>
+    <!-- 注意检查非空和主键自增属性 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert
+        into shop_site_group_booking
+        <include refid="insertList"></include>
+    </insert>
 
-	<update id="update">
-		update shop_site_group_booking
-		<set>
-						<if test="siteBookingId != null ">
+    <update id="update">
+        update shop_site_group_booking
+        <set>
+            			<if test="siteBookingId != null ">
 				site_booking_id=#{siteBookingId},
 			</if>
 			<if test="shopId != null ">
@@ -202,18 +202,18 @@
 				time_end=#{timeEnd},
 			</if>
 
-		</set>
-		where id = #{id}
-	</update>
+        </set>
+        where id = #{id}
+    </update>
 
-	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
-		insert into shop_site_group_booking
-		<include refid="insertList"></include>
-		ON DUPLICATE KEY
-		UPDATE
-		<trim suffixOverrides=",">
-						<if test="siteBookingId != null ">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+        insert into shop_site_group_booking
+        <include refid="insertList"></include>
+        ON DUPLICATE KEY
+        UPDATE
+        <trim suffixOverrides=",">
+            			<if test="siteBookingId != null ">
 				site_booking_id=values(site_booking_id),
 			</if>
 			<if test="shopId != null ">
@@ -262,17 +262,17 @@
 				time_end=values(time_end),
 			</if>
 
-		</trim>
-	</insert>
+        </trim>
+    </insert>
 
-	<sql id="queryList">
+    <sql id="queryList">
 		select id,site_booking_id,shop_id,coacher_id,shop_service_id,_type,_status,coacher_price,shop_name,service_name,site_name,coacher_name,coacher_cellphone,booking_date,time_begin,time_end,create_time,modify_time from
 		shop_site_group_booking
 	</sql>
 
-	<sql id="where">
-		<trim prefix="WHERE" prefixOverrides="AND">
-						<if test="id != null">
+    <sql id="where">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            			<if test="id != null">
 				AND id=#{id}
 			</if>
 			<if test="siteBookingId != null">
@@ -330,24 +330,30 @@
 				AND modify_time=#{modifyTime}
 			</if>
 
-		</trim>
-	</sql>
+        </trim>
+    </sql>
 
-	<select id="query" resultType="ShopSiteGroupBooking">
-		<include refid="queryList"></include>
-		<include refid="where"></include>
-	</select>
+    <select id="query" resultType="ShopSiteGroupBooking">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+    </select>
 
-	<select id="queryWithoutPage" resultType="ShopSiteGroupBooking">
-		<include refid="queryList"></include>
-		<include refid="where"></include>
-		<include refid="maxLimit"></include>
-	</select>
+    <select id="queryWithoutPage" resultType="ShopSiteGroupBooking">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
 
-	<select id="getIds" resultType="long">
-		select id from shop_site_group_booking
-		<include refid="where"></include>
-		<include refid="maxLimit"></include>
-	</select>
+    <select id="queryOne" resultType="ShopSiteGroupBooking">
+        select * from shop_site_group_booking
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="getIds" resultType="long">
+        select id from shop_site_group_booking
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
 
 </mapper>

@@ -1,12 +1,15 @@
 rootProject.name = 'dber-shop'
 
-includeFlat 'dber'
+includeFlat 'fastjson'
 
-include ':dber:dber-base-api'
+includeFlat 'dber-tool'
 
-include ':dber:dber-base-service'
+includeFlat 'dber-base-api'
 
-include ':dber:fastjson'
+includeFlat 'dber-base-service'
+
+includeFlat 'dber-plat'
+include ':dber-plat:dber-plat-api'
 
 include 'dber-shop-api'
 

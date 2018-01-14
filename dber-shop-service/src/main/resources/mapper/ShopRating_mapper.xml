@@ -1,36 +1,36 @@
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dber.shop.mapper.IShopRatingMapper">
 
-	<select id="get" resultType="ShopRating">
+    <select id="get" resultType="ShopRating">
 		select * from shop_rating where id=#{id}
 	</select>
 
-	<delete id="del">
+    <delete id="del">
 		delete from shop_rating where id = #{id}
 	</delete>
 
-	<select id="gets" resultType="ShopRating">
-		SELECT * FROM shop_rating WHERE id IN
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")"> #{item}
-		</foreach>
-	</select>
+    <select id="gets" resultType="ShopRating">
+        SELECT * FROM shop_rating WHERE id IN
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+    </select>
 
-	<sql id="maxLimit">
+    <sql id="maxLimit">
 		limit 1000
 	</sql>
 
-	<delete id="dels">
-		delete from shop_rating where id in
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")"> #{item}
-		</foreach>
-		<include refid="maxLimit"></include>
-	</delete>
+    <delete id="dels">
+        delete from shop_rating where id in
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+        <include refid="maxLimit"></include>
+    </delete>
 
-	<sql id="insertList">
+    <sql id="insertList">
 		(
 		<trim suffixOverrides=",">
 			<if test="id!=null">
@@ -119,17 +119,17 @@
 		)
 	</sql>
 
-	<!-- 注意检查非空和主键自增属性 -->
-	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
-		insert
-		into shop_rating
-		<include refid="insertList"></include>
-	</insert>
+    <!-- 注意检查非空和主键自增属性 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert
+        into shop_rating
+        <include refid="insertList"></include>
+    </insert>
 
-	<update id="update">
-		update shop_rating
-		<set>
-						<if test="shopId != null ">
+    <update id="update">
+        update shop_rating
+        <set>
+            			<if test="shopId != null ">
 				shop_id=#{shopId},
 			</if>
 			<if test="yearMonth != null ">
@@ -166,18 +166,18 @@
 				evalute_price=#{evalutePrice},
 			</if>
 
-		</set>
-		where id = #{id}
-	</update>
+        </set>
+        where id = #{id}
+    </update>
 
-	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
-		insert into shop_rating
-		<include refid="insertList"></include>
-		ON DUPLICATE KEY
-		UPDATE
-		<trim suffixOverrides=",">
-						<if test="shopId != null ">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+        insert into shop_rating
+        <include refid="insertList"></include>
+        ON DUPLICATE KEY
+        UPDATE
+        <trim suffixOverrides=",">
+            			<if test="shopId != null ">
 				shop_id=values(shop_id),
 			</if>
 			<if test="yearMonth != null ">
@@ -214,17 +214,17 @@
 				evalute_price=values(evalute_price),
 			</if>
 
-		</trim>
-	</insert>
+        </trim>
+    </insert>
 
-	<sql id="queryList">
+    <sql id="queryList">
 		select id,shop_id,year_month,base_score,service_item_score,customer_count,customer_evaluate_score,coacher_count,coacher_evaluate_score,congestion_degree,score,level,evalute_price,modify_time from
 		shop_rating
 	</sql>
 
-	<sql id="where">
-		<trim prefix="WHERE" prefixOverrides="AND">
-						<if test="id != null">
+    <sql id="where">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            			<if test="id != null">
 				AND id=#{id}
 			</if>
 			<if test="shopId != null">
@@ -267,24 +267,30 @@
 				AND modify_time=#{modifyTime}
 			</if>
 
-		</trim>
-	</sql>
+        </trim>
+    </sql>
 
-	<select id="query" resultType="ShopRating">
-		<include refid="queryList"></include>
-		<include refid="where"></include>
-	</select>
+    <select id="query" resultType="ShopRating">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+    </select>
 
-	<select id="queryWithoutPage" resultType="ShopRating">
-		<include refid="queryList"></include>
-		<include refid="where"></include>
-		<include refid="maxLimit"></include>
-	</select>
+    <select id="queryWithoutPage" resultType="ShopRating">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
 
-	<select id="getIds" resultType="long">
-		select id from shop_rating
-		<include refid="where"></include>
-		<include refid="maxLimit"></include>
-	</select>
+    <select id="queryOne" resultType="ShopRating">
+        select * from shop_rating
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="getIds" resultType="long">
+        select id from shop_rating
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
 
 </mapper>

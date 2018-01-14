@@ -1,36 +1,36 @@
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dber.shop.mapper.IShopMapper">
 
-	<select id="get" resultType="Shop">
+    <select id="get" resultType="Shop">
 		select * from shop where id=#{id}
 	</select>
 
-	<delete id="del">
+    <delete id="del">
 		delete from shop where id = #{id}
 	</delete>
 
-	<select id="gets" resultType="Shop">
-		SELECT * FROM shop WHERE id IN
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")"> #{item}
-		</foreach>
-	</select>
+    <select id="gets" resultType="Shop">
+        SELECT * FROM shop WHERE id IN
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+    </select>
 
-	<sql id="maxLimit">
+    <sql id="maxLimit">
 		limit 1000
 	</sql>
 
-	<delete id="dels">
-		delete from shop where id in
-		<foreach item="item" index="index" collection="array" open="("
-			separator="," close=")"> #{item}
-		</foreach>
-		<include refid="maxLimit"></include>
-	</delete>
+    <delete id="dels">
+        delete from shop where id in
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+        <include refid="maxLimit"></include>
+    </delete>
 
-	<sql id="insertList">
+    <sql id="insertList">
 		(
 		<trim suffixOverrides=",">
 			<if test="id!=null">
@@ -167,17 +167,17 @@
 		)
 	</sql>
 
-	<!-- 注意检查非空和主键自增属性 -->
-	<insert id="insert" keyProperty="id" useGeneratedKeys="true">
-		insert
-		into shop
-		<include refid="insertList"></include>
-	</insert>
+    <!-- 注意检查非空和主键自增属性 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert
+        into shop
+        <include refid="insertList"></include>
+    </insert>
 
-	<update id="update">
-		update shop
-		<set>
-						<if test="name != null ">
+    <update id="update">
+        update shop
+        <set>
+            			<if test="name != null ">
 				name=#{name},
 			</if>
 			<if test="address != null ">
@@ -238,18 +238,18 @@
 				img_id=#{imgId},
 			</if>
 
-		</set>
-		where id = #{id}
-	</update>
+        </set>
+        where id = #{id}
+    </update>
 
-	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		<!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
-		insert into shop
-		<include refid="insertList"></include>
-		ON DUPLICATE KEY
-		UPDATE
-		<trim suffixOverrides=",">
-						<if test="name != null ">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+        insert into shop
+        <include refid="insertList"></include>
+        ON DUPLICATE KEY
+        UPDATE
+        <trim suffixOverrides=",">
+            			<if test="name != null ">
 				name=values(name),
 			</if>
 			<if test="address != null ">
@@ -310,17 +310,17 @@
 				img_id=values(img_id),
 			</if>
 
-		</trim>
-	</insert>
+        </trim>
+    </insert>
 
-	<sql id="queryList">
+    <sql id="queryList">
 		select id,name,address,tellphone,manager,manager_phone,business_begin,business_end,area,chain,bathing,sauna,air_system,status,matrix_code_id,score,level,expect_price,price,img_id,create_time,modify_time from
 		shop
 	</sql>
 
-	<sql id="where">
-		<trim prefix="WHERE" prefixOverrides="AND">
-						<if test="id != null">
+    <sql id="where">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            			<if test="id != null">
 				AND id=#{id}
 			</if>
 			<if test="name != null">
@@ -390,24 +390,30 @@
 				AND modify_time=#{modifyTime}
 			</if>
 
-		</trim>
-	</sql>
+        </trim>
+    </sql>
 
-	<select id="query" resultType="Shop">
-		<include refid="queryList"></include>
-		<include refid="where"></include>
-	</select>
+    <select id="query" resultType="Shop">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+    </select>
 
-	<select id="queryWithoutPage" resultType="Shop">
-		<include refid="queryList"></include>
-		<include refid="where"></include>
-		<include refid="maxLimit"></include>
-	</select>
+    <select id="queryWithoutPage" resultType="Shop">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
 
-	<select id="getIds" resultType="long">
-		select id from shop
-		<include refid="where"></include>
-		<include refid="maxLimit"></include>
-	</select>
+    <select id="queryOne" resultType="Shop">
+        select * from shop
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="getIds" resultType="long">
+        select id from shop
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
 
 </mapper>
