@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dber.base.service.IService;
-import com.dber.base.web.controller.AbstractController;
+import com.dber.base.web.controller.AbstractReadController;
 import com.dber.shop.api.entity.ShopVipCard;
 import com.dber.shop.service.IShopVipCardService;
 
@@ -21,7 +21,7 @@ import com.dber.shop.service.IShopVipCardService;
  */
 @RestController
 @RequestMapping("/shop_vip_card")
-public class ShopVipCardController extends AbstractController<ShopVipCard> {
+public class ShopVipCardController extends AbstractReadController<ShopVipCard> {
 
 	@Autowired
 	private IShopVipCardService service;

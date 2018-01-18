@@ -1,11 +1,12 @@
 package com.dber.shop.web.controller;
 
+import com.dber.base.web.controller.AbstractReadController;
+import com.dber.base.web.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dber.base.service.IService;
-import com.dber.base.web.controller.AbstractController;
 import com.dber.shop.api.entity.Shop;
 import com.dber.shop.service.IShopService;
 
@@ -14,20 +15,27 @@ import com.dber.shop.service.IShopService;
  * <li>修改记录: ...</li>
  * <li>内容摘要: ...</li>
  * <li>其他说明: ...</li>
- * 
+ *
+ * @author dev-v
  * @version 1.0
  * @since 2017年12月21日
- * @author dev-v
  */
 @RestController
 @RequestMapping("/shop")
-public class ShopController extends AbstractController<Shop> {
+public class ShopController extends AbstractReadController<Shop> {
 
-	@Autowired
-	private IShopService service;
+    @Autowired
+    private IShopService service;
 
-	@Override
-	protected IService<Shop> getService() {
-		return this.service;
-	}
+    @RequestMapping("/save")
+    public Response<Shop> save(Shop shop) {
+        shop.setId(getAccountId());
+        service.save(shop);
+        return Response.newSuccessResponse(shop);
+    }
+
+    @Override
+    public IService<Shop> getService() {
+        return this.service;
+    }
 }

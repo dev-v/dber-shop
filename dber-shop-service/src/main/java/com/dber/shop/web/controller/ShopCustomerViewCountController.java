@@ -1,5 +1,6 @@
 package com.dber.shop.web.controller;
 
+import com.dber.base.web.controller.AbstractReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,7 @@ import com.dber.shop.service.IShopCustomerViewCountService;
  */
 @RestController
 @RequestMapping("/shop_customer_view_count")
-public class ShopCustomerViewCountController extends AbstractController<ShopCustomerViewCount> {
+public class ShopCustomerViewCountController extends AbstractReadController<ShopCustomerViewCount> {
 
 	@Autowired
 	private IShopCustomerViewCountService service;

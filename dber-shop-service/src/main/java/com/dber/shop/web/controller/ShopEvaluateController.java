@@ -1,13 +1,16 @@
 package com.dber.shop.web.controller;
 
+import com.dber.base.web.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dber.base.service.IService;
-import com.dber.base.web.controller.AbstractController;
+import com.dber.base.web.controller.AbstractReadController;
 import com.dber.shop.api.entity.ShopEvaluate;
 import com.dber.shop.service.IShopEvaluateService;
+
+import java.util.Collection;
 
 /**
  * <li>文件名称: ShopEvaluateController.java</li>
@@ -21,7 +24,7 @@ import com.dber.shop.service.IShopEvaluateService;
  */
 @RestController
 @RequestMapping("/shop_evaluate")
-public class ShopEvaluateController extends AbstractController<ShopEvaluate> {
+public class ShopEvaluateController extends AbstractReadController<ShopEvaluate> {
 
 	@Autowired
 	private IShopEvaluateService service;

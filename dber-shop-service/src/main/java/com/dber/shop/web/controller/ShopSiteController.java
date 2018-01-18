@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dber.base.service.IService;
-import com.dber.base.web.controller.AbstractController;
+import com.dber.base.web.controller.AbstractReadController;
 import com.dber.shop.api.entity.ShopSite;
 import com.dber.shop.service.IShopSiteService;
 
@@ -21,7 +21,7 @@ import com.dber.shop.service.IShopSiteService;
  */
 @RestController
 @RequestMapping("/shop_site")
-public class ShopSiteController extends AbstractController<ShopSite> {
+public class ShopSiteController extends AbstractReadController<ShopSite> {
 
 	@Autowired
 	private IShopSiteService service;

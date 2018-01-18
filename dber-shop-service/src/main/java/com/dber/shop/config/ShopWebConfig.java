@@ -1,6 +1,6 @@
 package com.dber.shop.config;
 
-import com.dber.plat.api.PlatClient;
+import com.dber.plat.api.PlatLoginHelper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -18,7 +18,7 @@ import com.dber.base.config.BaseWebConfig;
  * @author dev-v
  */
 @Configuration
-@Import({ ShopServiceConfig.class,BaseWebConfig.class, PlatClient.class})
+@Import({ ShopServiceConfig.class,BaseWebConfig.class, PlatLoginHelper.class})
 @ComponentScan("com.dber.shop.web")
 public class ShopWebConfig {
 }
