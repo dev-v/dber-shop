@@ -1,6 +1,5 @@
 package com.dber.shop.web.controller;
 
-import com.dber.base.enums.YesNo;
 import com.dber.base.service.IService;
 import com.dber.base.web.controller.AbstractReadController;
 import com.dber.base.web.vo.Response;
@@ -32,10 +31,10 @@ public class ShopServiceController extends AbstractReadController<ShopService> {
     @RequestMapping("/save")
     public Response<ShopService> save(ShopService shopService) {
         shopService.setShopId(getAccountId());
+//        if (shopService.getId() == null && YesNo.YES.is(shopService.getShareSite())) {
+//            shopService.setCount(1);
+//        }
         service.save(shopService);
-        if (shopService.getId() == null && YesNo.YES.is(shopService.getShareSite())) {
-            shopService.setCount(1);
-        }
         return Response.newSuccessResponse(shopService);
     }
 
