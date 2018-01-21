@@ -16,7 +16,7 @@ import lombok.Data;
 public class Shop {
 	
 	/**
-	 * 
+	 * 实际为account_id(所属账号id)
 	 */
 	private Integer id;
 

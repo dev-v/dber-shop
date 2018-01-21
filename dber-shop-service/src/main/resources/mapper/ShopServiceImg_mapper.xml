@@ -30,6 +30,11 @@
         <include refid="maxLimit"></include>
     </delete>
 
+    <delete id="delByCondition">
+        delete from shop_service_img
+        <include refid="where"></include>
+    </delete>
+
     <sql id="insertList">
 		(
 		<trim suffixOverrides=",">

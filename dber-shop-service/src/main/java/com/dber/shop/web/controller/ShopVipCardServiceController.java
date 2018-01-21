@@ -1,13 +1,13 @@
 package com.dber.shop.web.controller;
 
+import com.dber.base.service.IService;
+import com.dber.base.web.controller.AbstractReadController;
+import com.dber.base.web.vo.Response;
+import com.dber.shop.api.entity.ShopVipCardService;
+import com.dber.shop.service.IShopVipCardServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.dber.base.service.IService;
-import com.dber.base.web.controller.AbstractReadController;
-import com.dber.shop.api.entity.ShopVipCardService;
-import com.dber.shop.service.IShopVipCardServiceService;
 
 /**
  * <li>文件名称: ShopVipCardServiceController.java</li>
@@ -25,6 +25,29 @@ public class ShopVipCardServiceController extends AbstractReadController<ShopVip
 
     @Autowired
     private IShopVipCardServiceService service;
+
+    @Override
+    public Response queryWithoutPage(ShopVipCardService data) {
+        if (data.getShopVipCardId() == null) {
+            return Response.newFailureResponse("请选择会员卡！");
+        }
+        data.setShopId(getAccountId());
+        return super.queryWithoutPage(data);
+    }
+
+    @RequestMapping("/save")
+    public Response save(ShopVipCardService data) {
+        data.setShopId(getAccountId());
+        service.save(data);
+        return Response.newSuccessResponse(data);
+    }
+
+    @RequestMapping("/delWithCondition")
+    public Response delWithCondition(ShopVipCardService data) {
+        data.setShopId(getAccountId());
+        data.setServiceName(null);
+        return Response.newSuccessResponse(service.del(data));
+    }
 
     @Override
     protected IService<ShopVipCardService> getService() {

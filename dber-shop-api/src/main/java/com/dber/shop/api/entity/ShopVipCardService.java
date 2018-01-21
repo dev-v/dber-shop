@@ -21,6 +21,11 @@ public class ShopVipCardService {
 	private Integer id;
 
 	/**
+	 * 
+	 */
+	private Integer shopId;
+
+	/**
 	 * 店铺年卡id
 	 */
 	private Integer shopVipCardId;
@@ -29,6 +34,11 @@ public class ShopVipCardService {
 	 * 店铺服务id
 	 */
 	private Integer shopServiceId;
+
+	/**
+	 * 
+	 */
+	private String serviceName;
 
 
 }

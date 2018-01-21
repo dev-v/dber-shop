@@ -30,6 +30,11 @@
         <include refid="maxLimit"></include>
     </delete>
 
+    <delete id="delByCondition">
+        delete from shop_vip_card_service
+        <include refid="where"></include>
+    </delete>
+
     <sql id="insertList">
 		(
 		<trim suffixOverrides=",">
@@ -42,6 +47,12 @@
 			<if test="shopServiceId!=null">
 				shop_service_id,
 			</if>
+			<if test="shopId!=null">
+				shop_id,
+			</if>
+			<if test="serviceName!=null">
+				service_name,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -53,6 +64,12 @@
 			</if>
 			<if test="shopServiceId!=null">
 				#{shopServiceId},
+			</if>
+			<if test="shopId!=null">
+				#{shopId},
+			</if>
+			<if test="serviceName!=null">
+				#{serviceName},
 			</if>
 		</trim>
 
@@ -75,6 +92,12 @@
 			<if test="shopServiceId != null ">
 				shop_service_id=#{shopServiceId},
 			</if>
+			<if test="shopId != null ">
+				shop_id=#{shopId},
+			</if>
+			<if test="serviceName != null ">
+				service_name=#{serviceName},
+			</if>
 
         </set>
         where id = #{id}
@@ -93,12 +116,18 @@
 			<if test="shopServiceId != null ">
 				shop_service_id=values(shop_service_id),
 			</if>
+			<if test="shopId != null ">
+				shop_id=values(shop_id),
+			</if>
+			<if test="serviceName != null ">
+				service_name=values(service_name),
+			</if>
 
         </trim>
     </insert>
 
     <sql id="queryList">
-		select id,shop_vip_card_id,shop_service_id from
+		select id,shop_id,shop_vip_card_id,shop_service_id,service_name from
 		shop_vip_card_service
 	</sql>
 
@@ -112,6 +141,12 @@
 			</if>
 			<if test="shopServiceId != null">
 				AND shop_service_id=#{shopServiceId}
+			</if>
+			<if test="shopId != null">
+				AND shop_id=#{shopId}
+			</if>
+			<if test="serviceName != null">
+				AND service_name=#{serviceName}
 			</if>
 
         </trim>

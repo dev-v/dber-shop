@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 2018/1/11
  */
 @Service
-public class ShopClient extends AbstractClient{
+public class ShopClient extends AbstractClient implements IShopClient{
     public ShopClient(){
         super(DberSystem.SHOP);
     }

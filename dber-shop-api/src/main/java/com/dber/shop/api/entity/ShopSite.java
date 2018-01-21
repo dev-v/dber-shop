@@ -23,6 +23,11 @@ public class ShopSite {
 	/**
 	 * 
 	 */
+	private Integer shopId;
+
+	/**
+	 * 
+	 */
 	private Integer shopServiceId;
 
 	/**

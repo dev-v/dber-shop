@@ -31,6 +31,11 @@ public class ShopService {
 	private Integer serviceId;
 
 	/**
+	 * 废弃字段
+	 */
+	private Integer type;
+
+	/**
 	 * 服务名称冗余
 	 */
 	private String serviceName;
@@ -41,9 +46,14 @@ public class ShopService {
 	private Integer count;
 
 	/**
-	 * 服务类型：1-共享场地、2-独占场地、3-团体科目
+	 * 
 	 */
-	private Integer type;
+	private Integer group;
+
+	/**
+	 * 
+	 */
+	private Integer shareSite;
 
 	/**
 	 * 是否允许私人教练：1-是，2-否

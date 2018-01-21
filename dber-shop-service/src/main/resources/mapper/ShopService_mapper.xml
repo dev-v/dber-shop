@@ -30,6 +30,11 @@
         <include refid="maxLimit"></include>
     </delete>
 
+    <delete id="delByCondition">
+        delete from shop_service
+        <include refid="where"></include>
+    </delete>
+
     <sql id="insertList">
 		(
 		<trim suffixOverrides=",">
@@ -42,14 +47,20 @@
 			<if test="serviceId!=null">
 				service_id,
 			</if>
+			<if test="type!=null">
+				_type,
+			</if>
 			<if test="serviceName!=null">
 				service_name,
 			</if>
 			<if test="count!=null">
 				_count,
 			</if>
-			<if test="type!=null">
-				_type,
+			<if test="group!=null">
+				_group,
+			</if>
+			<if test="shareSite!=null">
+				share_site,
 			</if>
 			<if test="coach!=null">
 				coach,
@@ -72,14 +83,20 @@
 			<if test="serviceId!=null">
 				#{serviceId},
 			</if>
+			<if test="type!=null">
+				#{type},
+			</if>
 			<if test="serviceName!=null">
 				#{serviceName},
 			</if>
 			<if test="count!=null">
 				#{count},
 			</if>
-			<if test="type!=null">
-				#{type},
+			<if test="group!=null">
+				#{group},
+			</if>
+			<if test="shareSite!=null">
+				#{shareSite},
 			</if>
 			<if test="coach!=null">
 				#{coach},
@@ -111,14 +128,20 @@
 			<if test="serviceId != null ">
 				service_id=#{serviceId},
 			</if>
+			<if test="type != null ">
+				_type=#{type},
+			</if>
 			<if test="serviceName != null ">
 				service_name=#{serviceName},
 			</if>
 			<if test="count != null ">
 				_count=#{count},
 			</if>
-			<if test="type != null ">
-				_type=#{type},
+			<if test="group != null ">
+				_group=#{group},
+			</if>
+			<if test="shareSite != null ">
+				share_site=#{shareSite},
 			</if>
 			<if test="coach != null ">
 				coach=#{coach},
@@ -147,14 +170,20 @@
 			<if test="serviceId != null ">
 				service_id=values(service_id),
 			</if>
+			<if test="type != null ">
+				_type=values(_type),
+			</if>
 			<if test="serviceName != null ">
 				service_name=values(service_name),
 			</if>
 			<if test="count != null ">
 				_count=values(_count),
 			</if>
-			<if test="type != null ">
-				_type=values(_type),
+			<if test="group != null ">
+				_group=values(_group),
+			</if>
+			<if test="shareSite != null ">
+				share_site=values(share_site),
 			</if>
 			<if test="coach != null ">
 				coach=values(coach),
@@ -170,7 +199,7 @@
     </insert>
 
     <sql id="queryList">
-		select id,shop_id,service_id,service_name,_count,_type,coach,status,price,create_time,modify_time from
+		select id,shop_id,service_id,_type,service_name,_count,_group,share_site,coach,status,price,create_time,modify_time from
 		shop_service
 	</sql>
 
@@ -185,14 +214,20 @@
 			<if test="serviceId != null">
 				AND service_id=#{serviceId}
 			</if>
+			<if test="type != null">
+				AND _type=#{type}
+			</if>
 			<if test="serviceName != null">
 				AND service_name=#{serviceName}
 			</if>
 			<if test="count != null">
 				AND _count=#{count}
 			</if>
-			<if test="type != null">
-				AND _type=#{type}
+			<if test="group != null">
+				AND _group=#{group}
+			</if>
+			<if test="shareSite != null">
+				AND share_site=#{shareSite}
 			</if>
 			<if test="coach != null">
 				AND coach=#{coach}
