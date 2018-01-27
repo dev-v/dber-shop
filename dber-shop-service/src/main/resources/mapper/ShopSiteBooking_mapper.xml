@@ -53,6 +53,9 @@
 			<if test="timeEnd!=null">
 				time_end,
 			</if>
+			<if test="status!=null">
+				_status,
+			</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -70,6 +73,9 @@
 			</if>
 			<if test="timeEnd!=null">
 				#{timeEnd},
+			</if>
+			<if test="status!=null">
+				#{status},
 			</if>
 		</trim>
 
@@ -98,6 +104,9 @@
 			<if test="timeEnd != null ">
 				time_end=#{timeEnd},
 			</if>
+			<if test="status != null ">
+				_status=#{status},
+			</if>
 
         </set>
         where id = #{id}
@@ -122,12 +131,15 @@
 			<if test="timeEnd != null ">
 				time_end=values(time_end),
 			</if>
+			<if test="status != null ">
+				_status=values(_status),
+			</if>
 
         </trim>
     </insert>
 
     <sql id="queryList">
-		select id,site_id,booking_date,time_begin,time_end from
+		select id,site_id,booking_date,time_begin,time_end,_status from
 		shop_site_booking
 	</sql>
 
@@ -148,6 +160,9 @@
 			<if test="timeEnd != null">
 				AND time_end=#{timeEnd}
 			</if>
+			<if test="status != null">
+				AND _status=#{status}
+			</if>
 
         </trim>
     </sql>
@@ -167,6 +182,17 @@
         select * from shop_site_booking
         <include refid="where"></include>
         limit 1
+    </select>
+
+    <select id="has" resultType="int">
+        select 1 from shop_site_booking
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from shop_site_booking
+        <include refid="where"></include>
     </select>
 
     <select id="getIds" resultType="long">

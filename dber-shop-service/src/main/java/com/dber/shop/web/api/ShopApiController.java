@@ -3,7 +3,7 @@ package com.dber.shop.web.api;
 import com.dber.base.IClient;
 import com.dber.base.enums.DberSystem;
 import com.dber.base.util.BaseKeyUtil;
-import com.dber.base.web.vo.Response;
+import com.dber.base.entity.Response;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

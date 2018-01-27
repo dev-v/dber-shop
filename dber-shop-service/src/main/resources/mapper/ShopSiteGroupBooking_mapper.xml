@@ -53,8 +53,8 @@
 			<if test="shopServiceId!=null">
 				shop_service_id,
 			</if>
-			<if test="type!=null">
-				_type,
+			<if test="siteId!=null">
+				site_id,
 			</if>
 			<if test="status!=null">
 				_status,
@@ -107,8 +107,8 @@
 			<if test="shopServiceId!=null">
 				#{shopServiceId},
 			</if>
-			<if test="type!=null">
-				#{type},
+			<if test="siteId!=null">
+				#{siteId},
 			</if>
 			<if test="status!=null">
 				#{status},
@@ -170,8 +170,8 @@
 			<if test="shopServiceId != null ">
 				shop_service_id=#{shopServiceId},
 			</if>
-			<if test="type != null ">
-				_type=#{type},
+			<if test="siteId != null ">
+				site_id=#{siteId},
 			</if>
 			<if test="status != null ">
 				_status=#{status},
@@ -230,8 +230,8 @@
 			<if test="shopServiceId != null ">
 				shop_service_id=values(shop_service_id),
 			</if>
-			<if test="type != null ">
-				_type=values(_type),
+			<if test="siteId != null ">
+				site_id=values(site_id),
 			</if>
 			<if test="status != null ">
 				_status=values(_status),
@@ -271,7 +271,7 @@
     </insert>
 
     <sql id="queryList">
-		select id,site_booking_id,shop_id,coacher_id,shop_service_id,_type,_status,coacher_price,shop_name,service_name,site_name,coacher_name,coacher_cellphone,booking_date,time_begin,time_end,create_time,modify_time from
+		select id,site_booking_id,shop_id,site_id,coacher_id,shop_service_id,_status,coacher_price,shop_name,service_name,site_name,coacher_name,coacher_cellphone,booking_date,time_begin,time_end,create_time,modify_time from
 		shop_site_group_booking
 	</sql>
 
@@ -292,8 +292,8 @@
 			<if test="shopServiceId != null">
 				AND shop_service_id=#{shopServiceId}
 			</if>
-			<if test="type != null">
-				AND _type=#{type}
+			<if test="siteId != null">
+				AND site_id=#{siteId}
 			</if>
 			<if test="status != null">
 				AND _status=#{status}
@@ -353,6 +353,17 @@
         select * from shop_site_group_booking
         <include refid="where"></include>
         limit 1
+    </select>
+
+    <select id="has" resultType="int">
+        select 1 from shop_site_group_booking
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from shop_site_group_booking
+        <include refid="where"></include>
     </select>
 
     <select id="getIds" resultType="long">

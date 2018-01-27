@@ -2,7 +2,7 @@ package com.dber.shop.web.controller;
 
 import com.dber.base.service.IService;
 import com.dber.base.web.controller.AbstractReadController;
-import com.dber.base.web.vo.Response;
+import com.dber.base.entity.Response;
 import com.dber.shop.api.entity.ShopService;
 import com.dber.shop.service.IShopServiceService;
 import org.springframework.beans.factory.annotation.Autowired;

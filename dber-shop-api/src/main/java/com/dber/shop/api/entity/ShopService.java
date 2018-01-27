@@ -53,6 +53,11 @@ public class ShopService {
 	/**
 	 * 
 	 */
+	private Double groupPrice;
+
+	/**
+	 * 
+	 */
 	private Integer shareSite;
 
 	/**

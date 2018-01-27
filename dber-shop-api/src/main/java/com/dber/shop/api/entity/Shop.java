@@ -48,12 +48,12 @@ public class Shop {
 	/**
 	 * 营业开始时间
 	 */
-	private java.sql.Time businessBegin;
+	private Integer businessBegin;
 
 	/**
 	 * 营业结束时间
 	 */
-	private java.sql.Time businessEnd;
+	private Integer businessEnd;
 
 	/**
 	 * 占地面积（建筑或室内），单位平米

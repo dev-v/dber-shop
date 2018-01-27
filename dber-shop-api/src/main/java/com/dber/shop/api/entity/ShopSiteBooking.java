@@ -33,12 +33,19 @@ public class ShopSiteBooking {
 	/**
 	 * 使用起始时间，单位分钟
 	 */
-	private java.sql.Time timeBegin;
+	private Integer timeBegin;
 
 	/**
 	 * 使用结束时间
 	 */
-	private java.sql.Time timeEnd;
+	private Integer timeEnd;
+
+	/**
+	 * 1-启用；
+2-取消；
+3-已过期；
+	 */
+	private Integer status;
 
 
 }

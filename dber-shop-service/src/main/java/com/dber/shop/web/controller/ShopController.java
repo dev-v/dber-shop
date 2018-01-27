@@ -1,7 +1,7 @@
 package com.dber.shop.web.controller;
 
 import com.dber.base.web.controller.AbstractReadController;
-import com.dber.base.web.vo.Response;
+import com.dber.base.entity.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

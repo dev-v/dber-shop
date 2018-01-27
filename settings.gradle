@@ -11,6 +11,9 @@ includeFlat 'dber-base-service'
 includeFlat 'dber-plat'
 include ':dber-plat:dber-plat-api'
 
+includeFlat 'dber-upload'
+include ':dber-upload:dber-upload-api'
+
 include 'dber-shop-api'
 
 include 'dber-shop-service'

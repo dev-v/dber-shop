@@ -34,6 +34,7 @@ dber:
       shop: 123
       customer: 123
       coacher: 123
+      upload: 123
   service:
     name: shop
     database:

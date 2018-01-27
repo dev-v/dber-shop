@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import com.dber.config.SystemConfig;
 import com.dber.cache.config.CacheConfig;
+import com.dber.upload.api.UploadClient;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -37,7 +38,7 @@ import com.dber.base.util.DBUtil;
 @EnableConfigurationProperties({SystemConfig.class})
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@Import({CacheConfig.class})
+@Import({CacheConfig.class, UploadClient.class})
 @ComponentScan("com.dber.shop.service")
 @MapperScan(basePackages = { "com.dber.shop.mapper" })
 public class ShopServiceConfig {

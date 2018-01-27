@@ -59,6 +59,9 @@
 			<if test="group!=null">
 				_group,
 			</if>
+			<if test="groupPrice!=null">
+				group_price,
+			</if>
 			<if test="shareSite!=null">
 				share_site,
 			</if>
@@ -94,6 +97,9 @@
 			</if>
 			<if test="group!=null">
 				#{group},
+			</if>
+			<if test="groupPrice!=null">
+				#{groupPrice},
 			</if>
 			<if test="shareSite!=null">
 				#{shareSite},
@@ -140,6 +146,9 @@
 			<if test="group != null ">
 				_group=#{group},
 			</if>
+			<if test="groupPrice != null ">
+				group_price=#{groupPrice},
+			</if>
 			<if test="shareSite != null ">
 				share_site=#{shareSite},
 			</if>
@@ -182,6 +191,9 @@
 			<if test="group != null ">
 				_group=values(_group),
 			</if>
+			<if test="groupPrice != null ">
+				group_price=values(group_price),
+			</if>
 			<if test="shareSite != null ">
 				share_site=values(share_site),
 			</if>
@@ -199,7 +211,7 @@
     </insert>
 
     <sql id="queryList">
-		select id,shop_id,service_id,_type,service_name,_count,_group,share_site,coach,status,price,create_time,modify_time from
+		select id,shop_id,service_id,_type,service_name,_count,_group,group_price,share_site,coach,status,price,create_time,modify_time from
 		shop_service
 	</sql>
 
@@ -225,6 +237,9 @@
 			</if>
 			<if test="group != null">
 				AND _group=#{group}
+			</if>
+			<if test="groupPrice != null">
+				AND group_price=#{groupPrice}
 			</if>
 			<if test="shareSite != null">
 				AND share_site=#{shareSite}
@@ -263,6 +278,17 @@
         select * from shop_service
         <include refid="where"></include>
         limit 1
+    </select>
+
+    <select id="has" resultType="int">
+        select 1 from shop_service
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from shop_service
+        <include refid="where"></include>
     </select>
 
     <select id="getIds" resultType="long">

@@ -415,6 +415,17 @@
         limit 1
     </select>
 
+    <select id="has" resultType="int">
+        select 1 from shop
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from shop
+        <include refid="where"></include>
+    </select>
+
     <select id="getIds" resultType="long">
         select id from shop
         <include refid="where"></include>
