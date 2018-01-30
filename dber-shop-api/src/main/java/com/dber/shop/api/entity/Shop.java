@@ -120,7 +120,7 @@ public class Shop {
 	/**
 	 * 期望常规消费价，单位分
 	 */
-	private Integer expectPrice;
+	private Double expectPrice;
 
 	/**
 	 * 实际常规消费价

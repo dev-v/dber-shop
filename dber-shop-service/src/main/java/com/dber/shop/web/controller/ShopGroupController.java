@@ -1,10 +1,10 @@
 package com.dber.shop.web.controller;
 
+import com.dber.base.entity.Response;
 import com.dber.base.service.IService;
 import com.dber.base.web.controller.AbstractReadController;
-import com.dber.base.entity.Response;
-import com.dber.shop.api.entity.ShopSiteGroupBooking;
-import com.dber.shop.service.IShopSiteGroupBookingService;
+import com.dber.shop.api.entity.ShopGroup;
+import com.dber.shop.service.IShopGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,24 +20,24 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2017年12月21日
  */
 @RestController
-@RequestMapping("/shop_site_group_booking")
-public class ShopSiteGroupBookingController extends AbstractReadController<ShopSiteGroupBooking> {
+@RequestMapping("/shop_group")
+public class ShopGroupController extends AbstractReadController<ShopGroup> {
 
     @Autowired
-    private IShopSiteGroupBookingService service;
+    private IShopGroupService service;
 
     @RequestMapping("/save")
-    public Response save(ShopSiteGroupBooking groupBooking) {
-        if (groupBooking.getBookingDate() == null || groupBooking.getSiteId() == null) {
+    public Response save(ShopGroup group) {
+        if (group.getBookingDate() == null || group.getSiteId() == null) {
             return Response.newFailureResponse("参数错误");
         }
-        groupBooking.setShopId(getAccountId());
-        service.save(groupBooking);
-        return Response.newSuccessResponse(groupBooking);
+        group.setShopId(getAccountId());
+        service.save(group);
+        return Response.newSuccessResponse(group);
     }
 
     @Override
-    protected IService<ShopSiteGroupBooking> getService() {
+    protected IService<ShopGroup> getService() {
         return this.service;
     }
 }
