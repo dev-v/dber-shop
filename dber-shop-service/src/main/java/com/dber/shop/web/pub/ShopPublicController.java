@@ -1,9 +1,12 @@
 package com.dber.shop.web.pub;
 
 import com.dber.base.entity.Response;
+import com.dber.shop.api.entity.ShopPosition;
 import com.dber.shop.api.entity.ShopSiteBooking;
+import com.dber.shop.service.IShopPositionService;
 import com.dber.shop.service.IShopSiteBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +26,9 @@ public class ShopPublicController {
     @Autowired
     private IShopSiteBookingService siteBookingService;
 
+    @Autowired
+    private IShopPositionService positionService;
+
     /**
      * 根据日期和场地id查询有效的场地预订情况
      *
@@ -35,5 +41,10 @@ public class ShopPublicController {
         }
         siteBooking.setStatus(1);
         return Response.newSuccessResponse(siteBookingService.queryWithoutPage(siteBooking));
+    }
+
+    @RequestMapping("getShopPosition/{shopId}")
+    public Response<ShopPosition> getShopPosition(@PathVariable("shopId") int shopId) {
+        return Response.newSuccessResponse(positionService.get(shopId));
     }
 }

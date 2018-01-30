@@ -13,8 +13,4 @@ public class ShopClientTest {
     @Autowired
     private ShopClient client;
 
-    @Test
-    public void test(){
-        System.out.println(client.test());
-    }
 }

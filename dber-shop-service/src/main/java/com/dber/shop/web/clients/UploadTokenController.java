@@ -1,4 +1,4 @@
-package com.dber.shop.web.controller;
+package com.dber.shop.web.clients;
 
 import com.dber.base.enums.ImgType;
 import com.dber.shop.api.entity.ShopService;
@@ -28,7 +28,7 @@ public class UploadTokenController extends AbstractUploadHelperController {
     IShopSiteService shopSiteService;
 
     protected boolean validAuth(int accountId, int imgType, long bsId) {
-        if (ImgType.SHOP.is(imgType) || ImgType.MATRIX_CODE.is(imgType)) {
+        if (ImgType.SHOP_ENV.is(imgType) || ImgType.SHOP.is(imgType) || ImgType.MATRIX_CODE.is(imgType)) {
             if (accountId == bsId) {
                 return true;
             }

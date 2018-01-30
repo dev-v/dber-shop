@@ -113,6 +113,11 @@ public class Shop {
 	private Integer level;
 
 	/**
+	 * 
+	 */
+	private Double basePrice;
+
+	/**
 	 * 期望常规消费价，单位分
 	 */
 	private Integer expectPrice;

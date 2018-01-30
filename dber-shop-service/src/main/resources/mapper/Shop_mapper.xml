@@ -92,6 +92,9 @@
 			<if test="level!=null">
 				level,
 			</if>
+			<if test="basePrice!=null">
+				base_price,
+			</if>
 			<if test="expectPrice!=null">
 				expect_price,
 			</if>
@@ -157,6 +160,9 @@
 			</if>
 			<if test="level!=null">
 				#{level},
+			</if>
+			<if test="basePrice!=null">
+				#{basePrice},
 			</if>
 			<if test="expectPrice!=null">
 				#{expectPrice},
@@ -233,6 +239,9 @@
 			<if test="level != null ">
 				level=#{level},
 			</if>
+			<if test="basePrice != null ">
+				base_price=#{basePrice},
+			</if>
 			<if test="expectPrice != null ">
 				expect_price=#{expectPrice},
 			</if>
@@ -305,6 +314,9 @@
 			<if test="level != null ">
 				level=values(level),
 			</if>
+			<if test="basePrice != null ">
+				base_price=values(base_price),
+			</if>
 			<if test="expectPrice != null ">
 				expect_price=values(expect_price),
 			</if>
@@ -319,7 +331,7 @@
     </insert>
 
     <sql id="queryList">
-		select id,name,address,tellphone,manager,manager_phone,business_begin,business_end,area,chain,bathing,sauna,air_system,status,matrix_code_id,score,level,expect_price,price,img_id,create_time,modify_time from
+		select id,name,address,tellphone,manager,manager_phone,business_begin,business_end,area,chain,bathing,sauna,air_system,status,matrix_code_id,score,level,base_price,expect_price,price,img_id,create_time,modify_time from
 		shop
 	</sql>
 
@@ -378,6 +390,9 @@
 			</if>
 			<if test="level != null">
 				AND level=#{level}
+			</if>
+			<if test="basePrice != null">
+				AND base_price=#{basePrice}
 			</if>
 			<if test="expectPrice != null">
 				AND expect_price=#{expectPrice}

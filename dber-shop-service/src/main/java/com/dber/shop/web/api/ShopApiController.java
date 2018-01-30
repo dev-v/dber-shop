@@ -1,11 +1,15 @@
 package com.dber.shop.web.api;
 
 import com.dber.base.IClient;
-import com.dber.base.enums.DberSystem;
-import com.dber.base.util.BaseKeyUtil;
 import com.dber.base.entity.Response;
+import com.dber.base.result.Page;
+import com.dber.base.result.Result;
+import com.dber.shop.api.entity.Shop;
+import com.dber.shop.service.IShopService;
+import com.dber.shop.service.IShopServiceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,16 +24,35 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2018/1/12
  */
 @RestController
-@RequestMapping("/api")
-public class ShopApiController implements IClient{
+@RequestMapping("/api/")
+public class ShopApiController implements IClient {
 
-    /**
-     * @param system 客户端系统
-     * @return
-     */
-    @RequestMapping("/test")
-    public Response test(@RequestParam(BaseKeyUtil.auth_params_system) DberSystem system) {
-        return Response.newSuccessResponse(system);
+    @Autowired
+    private IShopService shopService;
+
+    @Autowired
+    IShopServiceService shopServiceService;
+
+    @RequestMapping("save")
+    public Result<Integer> save(Shop shop) {
+        if (shop.getId() != null) {
+            return Response.newSuccessResponse(shopService.save(shop)).toResult();
+        }
+        return Response.newSuccessResponse(0).toResult();
+    }
+
+    @RequestMapping("setBasePrice")
+    public Result<Integer> setBasePrice(Shop shop) {
+        return Response.newSuccessResponse(shopService.setBasePrice(shop)).toResult();
+    }
+
+    @RequestMapping("query/{currentPage}")
+    public Result<Page<Shop>> query(@PathVariable("currentPage") int page, Shop shop) {
+        Page<Shop> page1 = new Page<>(page);
+        page1.setCondition(shop);
+        page1.setSort("id desc");
+        shopService.query(page1);
+        return Response.newSuccessResponse(page1).toResult();
     }
 
 }

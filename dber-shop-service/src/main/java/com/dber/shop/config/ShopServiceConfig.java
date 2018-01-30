@@ -38,7 +38,7 @@ import com.dber.base.util.DBUtil;
 @EnableConfigurationProperties({SystemConfig.class})
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@Import({CacheConfig.class, UploadClient.class})
+@Import({CacheConfig.class})
 @ComponentScan("com.dber.shop.service")
 @MapperScan(basePackages = { "com.dber.shop.mapper" })
 public class ShopServiceConfig {

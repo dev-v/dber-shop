@@ -1,0 +1,174 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dber.shop.mapper.IShopPositionMapper">
+
+    <select id="get" resultType="ShopPosition">
+		select * from shop_position where id=#{id}
+	</select>
+
+    <delete id="del">
+		delete from shop_position where id = #{id}
+	</delete>
+
+    <select id="gets" resultType="ShopPosition">
+        SELECT * FROM shop_position WHERE id IN
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+    </select>
+
+    <sql id="maxLimit">
+		limit 1000
+	</sql>
+
+    <delete id="dels">
+        delete from shop_position where id in
+        <foreach item="item" index="index" collection="array" open="("
+                 separator="," close=")">#{item}
+        </foreach>
+        <include refid="maxLimit"></include>
+    </delete>
+
+    <delete id="delByCondition">
+        delete from shop_position
+        <include refid="where"></include>
+    </delete>
+
+    <sql id="insertList">
+		(
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				id,
+			</if>
+			<if test="name!=null">
+				name,
+			</if>
+			<if test="lat!=null">
+				lat,
+			</if>
+			<if test="lng!=null">
+				lng,
+			</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id!=null">
+				#{id},
+			</if>
+			<if test="name!=null">
+				#{name},
+			</if>
+			<if test="lat!=null">
+				#{lat},
+			</if>
+			<if test="lng!=null">
+				#{lng},
+			</if>
+		</trim>
+
+		)
+	</sql>
+
+    <!-- 注意检查非空和主键自增属性 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert
+        into shop_position
+        <include refid="insertList"></include>
+    </insert>
+
+    <update id="update">
+        update shop_position
+        <set>
+            			<if test="name != null ">
+				name=#{name},
+			</if>
+			<if test="lat != null ">
+				lat=#{lat},
+			</if>
+			<if test="lng != null ">
+				lng=#{lng},
+			</if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        <!-- 不包含数据库类型为TIMESTAMP（由数据库自动管理）的列 -->
+        insert into shop_position
+        <include refid="insertList"></include>
+        ON DUPLICATE KEY
+        UPDATE
+        <trim suffixOverrides=",">
+            			<if test="name != null ">
+				name=values(name),
+			</if>
+			<if test="lat != null ">
+				lat=values(lat),
+			</if>
+			<if test="lng != null ">
+				lng=values(lng),
+			</if>
+
+        </trim>
+    </insert>
+
+    <sql id="queryList">
+		select id,name,lat,lng from
+		shop_position
+	</sql>
+
+    <sql id="where">
+        <trim prefix="WHERE" prefixOverrides="AND">
+            			<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="name != null">
+				AND name=#{name}
+			</if>
+			<if test="lat != null">
+				AND lat=#{lat}
+			</if>
+			<if test="lng != null">
+				AND lng=#{lng}
+			</if>
+
+        </trim>
+    </sql>
+
+    <select id="query" resultType="ShopPosition">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+    </select>
+
+    <select id="queryWithoutPage" resultType="ShopPosition">
+        <include refid="queryList"></include>
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
+
+    <select id="queryOne" resultType="ShopPosition">
+        select * from shop_position
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="has" resultType="int">
+        select 1 from shop_position
+        <include refid="where"></include>
+        limit 1
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from shop_position
+        <include refid="where"></include>
+    </select>
+
+    <select id="getIds" resultType="long">
+        select id from shop_position
+        <include refid="where"></include>
+        <include refid="maxLimit"></include>
+    </select>
+
+</mapper>
