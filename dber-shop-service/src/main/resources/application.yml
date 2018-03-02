@@ -12,7 +12,7 @@ server:
 spring:
   profiles: dev
   redis:
-    host: 192.168.120.3
+    host: localhost
     port: 6379
     database: 0
     pool:
@@ -38,11 +38,11 @@ dber:
   service:
     name: shop
     database:
-      host: 192.168.120.3
+      host: localhost
       port: 3306
       database: dber_shop
       username: root
-      password: 123456
+      password: cwl123
       parameters: characterEncoding=utf8&rewriteBatchedStatements=true&autoReconnect=true
       initialSize: 1
       maxActive: 2
