@@ -27,6 +27,7 @@ public class UploadTokenController extends AbstractUploadHelperController {
     @Autowired
     IShopSiteService shopSiteService;
 
+    @Override
     protected boolean validAuth(int accountId, int imgType, long bsId) {
         if (ImgType.SHOP_ENV.is(imgType) || ImgType.SHOP.is(imgType) || ImgType.MATRIX_CODE.is(imgType)) {
             if (accountId == bsId) {

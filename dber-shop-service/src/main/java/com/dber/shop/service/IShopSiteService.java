@@ -3,6 +3,8 @@ package com.dber.shop.service;
 import com.dber.base.service.IService;
 import com.dber.shop.api.entity.ShopSite;
 
+import java.util.Collection;
+
 /**
  * <li>文件名称: IShopSiteService.java</li>
  * <li>修改记录: ...</li>
